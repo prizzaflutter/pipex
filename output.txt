@@ -1,0 +1,11 @@
+Bonus
+Makefile
+Mandatory
+a.out
+check_fd.sh
+exec.txt
+lib
+output.txt
+pipex
+printf_fd
+test.txt
