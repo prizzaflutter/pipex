@@ -1,11 +1,9 @@
 Bonus
 Makefile
 Mandatory
+README.md
 a.out
-check_fd.sh
-exec.txt
 lib
 output.txt
 pipex
-printf_fd
 test.txt

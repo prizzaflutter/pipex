@@ -6,11 +6,11 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 06:42:12 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/28 09:58:21 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/03 10:52:07 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 char	*make_path(char **paths, char **tmp)
 {

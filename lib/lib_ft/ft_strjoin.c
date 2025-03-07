@@ -6,11 +6,21 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:56:46 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/26 06:54:33 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/07 17:41:15 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mandatory/pipex.h"
+#include "../../Mandatory/pipex.h"
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

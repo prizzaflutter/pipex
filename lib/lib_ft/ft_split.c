@@ -6,11 +6,11 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:46:30 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/25 17:58:26 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/07 17:16:10 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mandatory/pipex.h"
+#include "../../Mandatory/pipex.h"
 
 static size_t	count_word(const char *s, char c)
 {

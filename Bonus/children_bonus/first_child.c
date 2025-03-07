@@ -6,11 +6,11 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:35:38 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/28 10:29:06 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:07:58 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 char	*configure_path(char *cmd, char **env)
 {
@@ -23,32 +23,51 @@ char	*configure_path(char *cmd, char **env)
 			&& !access(cmd, F_OK) && !access(cmd, X_OK))
 			cmd_path = cmd;
 		else
-			return (perror("command not found"), NULL);
+			return (ft_printf(2, "Error: Command not found : %s\n", cmd), NULL);
 	}
 	return (cmd_path);
 }
 
-int	first_child(int *fd_array, char **argv, char **env)
+int	first_child(int i, char **argv, char **env, int flag)
 {
 	int		fd;
+	int fd_array[2];
 	char	**cmd_args;
 	char	*cmd_path;
-
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
+	pid_t pid;
+	
+	if (pipe(fd_array) == -1)
 		return (0);
-	close (fd_array[0]);
-	dup2(fd, STDIN_FILENO);
-	dup2(fd_array[1], STDOUT_FILENO);
-	close(fd_array[1]);
-	close(fd);
-	cmd_args = ft_split(argv[2], ' ');
-	if (!cmd_args)
-		return (0);
-	cmd_path = configure_path(argv[2], env);
-	if (!cmd_path)
-		return (0);
-	if (execve(cmd_path, cmd_args, env) == -1)
-		return (ft_putstr_fd("Error: EXECVE => (first child)", 2), 0);
+	pid = fork();
+	if (pid == -1)
+		 return (perror("Error"), 0);
+	fd = 0;
+	if (flag == 0)
+	{
+		fd = open(argv[1], O_RDONLY);
+		if (fd < 0)
+			return (0);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	if (pid == 0)
+	{
+		close(fd_array[0]);
+		dup2(fd_array[1], STDOUT_FILENO);
+		close(fd_array[1]);
+		cmd_args = ft_split(argv[i], ' ');
+		if (!cmd_args)
+			return (0);
+		cmd_path = configure_path(argv[i], env);
+		if (!cmd_path)
+			return (0);
+		if (execve(cmd_path, cmd_args, env) == -1)
+			return (ft_putstr_fd("Error: EXECVE => (first child)", 2), 0);
+	}else 
+	{
+		close(fd_array[1]);
+		dup2(fd_array[0], STDIN_FILENO);
+		close(fd_array[0]);
+	}
 	return (1);
 }

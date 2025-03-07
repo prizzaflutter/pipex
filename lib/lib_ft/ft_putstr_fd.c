@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_add.c                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 15:45:00 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/27 09:54:07 by iaskour          ###   ########.fr       */
+/*   Created: 2024/10/31 10:40:59 by iaskour           #+#    #+#             */
+/*   Updated: 2025/03/07 17:16:02 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../Mandatory/pipex.h"
 
-int	ft_printf_add(unsigned long address, char *symbols, int flag, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
-	int	count;
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
+}
 
-	count = 0;
-	if (flag == 0)
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s == NULL || fd < 0)
+		return ;
+	while (s[i])
 	{
-		count += ft_putstr("0x", fd);
-		flag = 1;
+		ft_putchar_fd(s[i], fd);
+		i++;
 	}
-	if (address < 16)
-		count += ft_putchar(symbols[address], fd);
-	else
-	{
-		count += ft_printf_add(address / 16, symbols, flag, fd);
-		count += ft_printf_add(address % 16, symbols, flag, fd);
-	}
-	return (count);
 }

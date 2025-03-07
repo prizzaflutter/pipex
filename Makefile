@@ -1,35 +1,39 @@
 NAME= pipex
 
+NAME_BONUS= pipex_bonus
+
 CC= cc
 
 CFLAGS= -Wall -Wextra -Werror
 
-PRINTF_DIR = ./printf_fd/
 
-PRINTF_LIB= $(PRINTF_DIR)/libftprintf.a
-
-M_SRC= ./Mandatory/main.c ./lib/ft_putstr_fd.c ./lib/ft_bzero.c ./lib/ft_calloc.c ./lib/ft_split.c  ./lib/ft_strncmp.c \
-		./lib/ft_strjoin.c ./lib/ft_strlen.c \
+M_SRC= ./Mandatory/main.c ./lib/lib_ft/ft_putstr_fd.c ./lib/lib_ft/ft_split.c  ./lib/lib_ft/ft_strncmp.c \
+		./lib/lib_ft/ft_strjoin.c ./lib/lib_ft/ft_calloc.c \
 		./Mandatory/helpers/check_files.c ./Mandatory/helpers/get_cmd_path.c \
 		./Mandatory/children/first_child.c ./Mandatory/children/second_child.c \
 
+B_SRC=	./Bonus/main_bonus.c ./lib/lib_ft/ft_putstr_fd.c ./lib/lib_ft/ft_split.c  ./lib/lib_ft/ft_strncmp.c \
+		./lib/get_next_line/get_next_line.c ./lib/get_next_line/get_next_line_utils.c \
+		./Bonus/helpers_bonus/check_files.c ./Bonus/helpers_bonus/get_cmd_path.c \
+		./Bonus/children_bonus/first_child.c ./Bonus/children_bonus/second_child.c \
+
 M_OBJ= $(M_SRC:.c=.o)
 
+B_OBJ= $(B_SRC:.c=.o)
 
-all:  $(PRINTF_LIB) $(NAME)
+all: $(NAME)
 
 $(NAME): $(M_OBJ) ./Mandatory/pipex.h
-	$(CC) $(CFLAGS) $(M_OBJ) $(PRINTF_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(M_OBJ) -o $(NAME)
 
-$(PRINTF_LIB):
-	make -C $(PRINTF_DIR)
+
+bonus: $(B_OBJ)  ./Bonus/pipex_bonus.h
+	$(CC) $(CFLAGS) $(B_OBJ) -o $(NAME_BONUS)
 
 clean:
-	rm -f $(M_OBJ)
-	make -C $(PRINTF_DIR) clean
+	rm -f $(M_OBJ) $(B_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C $(PRINTF_DIR)
+	rm -f $(NAME) $(NAME_BONUS)
 
 re: fclean all

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 15:46:08 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/27 09:55:56 by iaskour          ###   ########.fr       */
+/*   Created: 2024/11/30 16:01:15 by iaskour           #+#    #+#             */
+/*   Updated: 2024/11/30 18:24:25 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
+# include <limits.h>
 # include <unistd.h>
-# include <stdarg.h>
+# include <stdlib.h>
 
-int	ft_printf(int fd, const char *format, ...);
-int	ft_putnbr(int n, int fd);
-int	ft_putchar(char c, int fd);
-int	ft_printf_hex(unsigned int n, char *symbols, int fd);
-int	ft_printf_add(unsigned long address, char *symbols, int flag, int fd);
-int	ft_printf_uns(unsigned int n, int fd);
-int	ft_putstr(char *str, int fd);
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	12
+# endif 
+
+char	*get_next_line(int fd);
+void	*ft_memmove(void *dst, const void *src, size_t len);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+
+#endif 

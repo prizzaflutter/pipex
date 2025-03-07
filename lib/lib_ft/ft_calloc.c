@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 11:58:47 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/25 17:59:37 by iaskour          ###   ########.fr       */
+/*   Created: 2024/10/27 13:15:55 by iaskour           #+#    #+#             */
+/*   Updated: 2025/03/07 17:39:33 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mandatory/pipex.h"
+#include "../../Mandatory/pipex.h"
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -24,4 +24,17 @@ void	ft_bzero(void *s, size_t n)
 		ptr[i] = 0;
 		i++;
 	}
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned char	*tmp;
+
+	if (size != 0 && count >= SIZE_MAX / size)
+		return (NULL);
+	tmp = malloc(count * size);
+	if (tmp == NULL)
+		return (NULL);
+	ft_bzero(tmp, (count * size));
+	return (tmp);
 }

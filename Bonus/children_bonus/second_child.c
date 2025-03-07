@@ -6,29 +6,26 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:42:41 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/28 10:36:48 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/07 14:53:46 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
-int	second_child(int fd, int *fd_array, char **argv, char **env)
+int	second_child(int fd, char **argv, char **env, int argc)
 {
 	char	**cmd_args;
 	char	*cmd_path;
-
-	close (fd_array[1]);
-	dup2(fd_array[0], STDIN_FILENO);
+	
 	dup2(fd, STDOUT_FILENO);
-	close(fd_array[0]);
 	close(fd);
-	cmd_args = ft_split(argv[3], ' ');
-	cmd_path = get_cmd_path(argv[3], env);
+	cmd_args = ft_split(argv[argc - 2], ' ');
+	cmd_path = get_cmd_path(argv[argc - 2], env);
 	if (!cmd_args || !cmd_path)
 	{
-		if ((!ft_strncmp(argv[3], "./", 2) || !ft_strncmp(argv[3], "/", 1))
-			&& !access(argv[3], F_OK) && !access(argv[3], X_OK))
-			cmd_path = argv[3];
+		if ((!ft_strncmp(argv[argc - 2], "./", 2) || !ft_strncmp(argv[argc - 2], "/", 1))
+			&& !access(argv[argc - 2], F_OK) && !access(argv[argc - 2], X_OK))
+			cmd_path = argv[argc - 2];
 		else
 			return (perror("command not found 2"), 0);
 	}
