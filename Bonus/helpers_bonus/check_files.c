@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:44:39 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/07 17:39:59 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/08 15:52:44 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_infile(char *infile)
 
 int	check_outfile(char *outfile)
 {
-	if (access(outfile, F_OK) != 0 || access(outfile, W_OK) != 0)
-		return (0);
+	if (access(outfile, W_OK) != 0)
+		return (ft_putstr_fd("Error: Permission denied\n", 2), 0);
 	return (1);
 }

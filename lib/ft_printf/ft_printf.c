@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 10:40:59 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/08 15:39:46 by iaskour          ###   ########.fr       */
+/*   Created: 2024/11/23 14:18:21 by iaskour           #+#    #+#             */
+/*   Updated: 2025/03/09 06:53:06 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Mandatory/pipex.h"
 
-void	ft_putstr_fd(char *s, int fd)
+static void	print_format(int fd, char format, va_list ap)
 {
-	int	i;
+	if (format == 's')
+		ft_putstr_fd(va_arg(ap, void *), fd);
+}
 
-	i = 0;
-	if (s == NULL || fd < 0)
+void	ft_printf(int fd, const char *format, ...)
+{
+	va_list		ap;
+
+	if (write(fd, "", 0) == -1)
 		return ;
-	while (s[i])
+	va_start(ap, format);
+	while (*format)
 	{
-		ft_putchar_fd(s[i], fd);
-		i++;
+		if (*format == '%' && *(format + 1) != '\0')
+			print_format(fd, *(++format), ap);
+		else
+			ft_putchar_fd(*format, fd);
+		format++;
 	}
+	va_end (ap);
 }

@@ -6,21 +6,11 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:00:01 by iaskour           #+#    #+#             */
-/*   Updated: 2024/11/30 18:24:21 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/09 06:53:16 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
@@ -89,26 +79,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	substr[i] = '\0';
 	return (substr);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char			*res;
-	unsigned int	i;
-	unsigned int	j;
-	size_t			lenght;
-
-	lenght = (ft_strlen(s1) + ft_strlen(s2));
-	res = (char *) malloc((lenght + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[j])
-		res[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
 }

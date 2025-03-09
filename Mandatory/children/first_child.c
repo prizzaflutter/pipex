@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:35:38 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/28 10:29:06 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/08 15:56:35 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*configure_path(char *cmd, char **env)
 			&& !access(cmd, F_OK) && !access(cmd, X_OK))
 			cmd_path = cmd;
 		else
-			return (perror("command not found"), NULL);
+			return (ft_printf(2, "Error: Command not found %s\n", cmd), NULL);
 	}
 	return (cmd_path);
 }

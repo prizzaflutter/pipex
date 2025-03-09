@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:42:41 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/28 10:36:48 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/08 15:57:14 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	second_child(int fd, int *fd_array, char **argv, char **env)
 			&& !access(argv[3], F_OK) && !access(argv[3], X_OK))
 			cmd_path = argv[3];
 		else
-			return (perror("command not found 2"), 0);
+			return (ft_printf(2, "Error: Command not found %s\n", argv[3]), 0);
 	}
 	if (execve (cmd_path, cmd_args, env) == -1)
 		return (ft_putstr_fd("Error: EXECVE => (second child)", 2), 0);

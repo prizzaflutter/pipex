@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_files.c                                      :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 11:44:39 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/08 15:57:48 by iaskour          ###   ########.fr       */
+/*   Created: 2025/03/08 15:39:51 by iaskour           #+#    #+#             */
+/*   Updated: 2025/03/09 06:53:24 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../../Mandatory/pipex.h"
 
-int	check_infile(char *infile)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (access(infile, F_OK) != 0)
-		return (ft_putstr_fd("Error: No such file or directory\n", 2), 0);
-	else if (access(infile, R_OK) != 0)
-		return (ft_putstr_fd("Error: Permission denied\n", 2), 0);
-	return (1);
-}
-
-int	check_outfile(char *outfile)
-{
-	if (access(outfile, W_OK) != 0)
-		return (ft_putstr_fd("Error: Permission denied\n", 2), 0);
-	return (1);
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
 }
