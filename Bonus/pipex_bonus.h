@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:10:45 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/09 06:52:38 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/13 11:15:37 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include "../lib/get_next_line/get_next_line.h"
 
 void	ft_printf(int fd, const char *format, ...);
 void	ft_putchar_fd(char c, int fd);
@@ -30,6 +31,8 @@ char	*get_cmd_path(char *cmd, char**env);
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
+int		open_file(char *file_name);
+int		is_here_doc(char	**argv);
+int		open_here_doc(int *fd1, int *fd2);
 
 #endif

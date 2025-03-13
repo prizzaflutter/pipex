@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_files.c                                      :+:      :+:    :+:   */
+/*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 11:44:39 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/11 15:37:20 by iaskour          ###   ########.fr       */
+/*   Created: 2025/03/09 11:04:22 by iaskour           #+#    #+#             */
+/*   Updated: 2025/03/13 11:16:23 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
-int	check_infile(char *infile)
+int	open_file(char *file_name)
 {
-	if (access(infile, F_OK) != 0)
-		return (ft_printf(2, "Error: No such file or directory\n"), 0);
-	else if (access(infile, R_OK) != 0)
-		return (ft_printf(2, "Error: Permission denied\n"), 0);
+	int	fd;
+
+	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
 	return (1);
 }
 
-int	check_outfile(char *outfile)
+int	open_here_doc(int *fd1, int *fd2)
 {
-	if (access(outfile, W_OK) != 0)
-		return (ft_printf(2, "Error: Permission denied\n"), 0);
+	unlink("here_doc.txt");
+	*fd1 = open("here_doc.txt", O_WRONLY
+			| O_CREAT | O_TRUNC, 0777);
+	*fd2 = open("here_doc.txt", O_RDONLY);
+	if (*fd1 < 0)
+		return (0);
+	if (*fd2 < 0)
+		return (close(*fd1), 0);
+	unlink("here_doc.txt");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 06:42:12 by iaskour           #+#    #+#             */
-/*   Updated: 2025/02/28 09:58:21 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/11 16:01:53 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ char	*get_cmd_path(char *cmd, char**env)
 	if (!env[i])
 		return (NULL);
 	paths = ft_split(env[i] + 5, ':');
+	if (!paths)
+		return (NULL);
 	tmp = ft_split(cmd, ' ');
-	if (!paths || !tmp)
-		return (free(paths), free(tmp), NULL);
+	if (!tmp)
+		return (free_args(paths), NULL);
 	cmd_path = make_path(paths, tmp);
-	free(paths);
-	free(tmp);
+	free_args(paths);
+	free_args(tmp);
 	return (cmd_path);
 }

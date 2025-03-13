@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:35:38 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/09 06:49:09 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/13 11:26:39 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,42 @@ int	excute_cmd(int i, int *fd_array, char **argv, char **env)
 	return (1);
 }
 
-int	open_infile(char **argv)
+int	handle_herdoc(int fd, char *line, char **argv)
 {
-	int	fd;
+	if (!ft_strncmp(line, argv[2], ft_strlen(argv[2]))
+		&& line[ft_strlen(argv[2])] == '\n')
+		return (free(line), 0);
+	ft_printf(0, "> ");
+	write(fd, line, ft_strlen(line));
+	free(line);
+	return (1);
+}
 
-	fd = 0;
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (ft_printf(1, "am here\n"), 0);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+int	handle_herdoc_infile(int i, char **argv)
+{
+	char	*line;
+	int		fd1;
+	int		fd2;
+
+	if (i == 3)
+	{
+		if (!open_here_doc(&fd1, &fd2))
+			return (0);
+		ft_printf(0, "> ");
+		line = get_next_line(0);
+		while (line)
+		{
+			if (!handle_herdoc(fd1, line, argv))
+				break ;
+			line = get_next_line(0);
+		}
+		close (fd1);
+		dup2(fd2, STDIN_FILENO);
+		close(fd2);
+	}
+	else
+		if (!open_file(argv[1]))
+			return (0);
 	return (1);
 }
 
@@ -67,19 +93,23 @@ int	first_child(int i, char **argv, char **env, int flag)
 
 	if (pipe(fd_array) == -1)
 		return (0);
+	if (flag == 0)
+		if (handle_herdoc_infile(i, argv) == 0)
+			return (ft_printf(2, "Error: in open file funciton\n"), 0);
 	pid = fork();
 	if (pid == -1)
 		return (ft_printf(2, "Error: fork issue\n"), 0);
-	if (flag == 0)
-		if (open_infile(argv) == 0)
-			return (ft_printf(2, "Error: in open file funciton\n"), 0);
 	if (pid == 0)
 	{
 		if (excute_cmd(i, fd_array, argv, env) == 0)
-			return (ft_printf(2, "Error: in excute command\n"), 0);
+			exit(1);
 	}
 	else
-		return (close(fd_array[1]), dup2(fd_array[0], STDIN_FILENO),
-			close(fd_array[0]), 1);
+	{
+		close(fd_array[1]);
+		dup2(fd_array[0], STDIN_FILENO);
+		close(fd_array[0]);
+		exit(0);
+	}
 	return (1);
 }

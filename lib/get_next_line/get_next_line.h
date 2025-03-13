@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:01:15 by iaskour           #+#    #+#             */
-/*   Updated: 2024/11/30 18:24:25 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/09 09:10:36 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	12
+#  define BUFFER_SIZE	99999999
 # endif 
 
 char	*get_next_line(int fd);
