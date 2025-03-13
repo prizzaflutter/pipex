@@ -1,23 +1,7 @@
-Process:         pipex_bonus [42712]
-Path:            /Volumes/VOLUME/*/pipex_bonus
-Load Address:    0x1010cd000
-Identifier:      pipex_bonus
-Version:         ???
-Code Type:       X86-64
-Parent Process:  zsh [41885]
-
-Date/Time:       2025-03-13 10:03:02.474 +0000
-Launch Time:     2025-03-13 10:02:58.194 +0000
-OS Version:      Mac OS X 10.15.7 (19H2026)
-Report Version:  7
-Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
-Analysis Tool Version:  Xcode 12.4 (12D4e)
-
-Physical footprint:         352K
-Physical footprint (peak):  352K
-----
-
-leaks Report Version: 4.0
-Process 42712: 156 nodes malloced for 8 KB
-Process 42712: 0 leaks for 0 total leaked bytes.
-
+COMMAND    PID    USER   FD   TYPE             DEVICE SIZE/OFF                NODE NAME
+pipex_bon 2473 iaskour  cwd    DIR                1,9      408             5634629 /mnt/homes/iaskour/Documents/pipex
+pipex_bon 2473 iaskour  txt    REG                1,9    52080             6377917 /mnt/homes/iaskour/Documents/pipex/pipex_bonus
+pipex_bon 2473 iaskour  txt    REG                1,5  1572480 1152921500312428923 /usr/lib/dyld
+pipex_bon 2473 iaskour    0   PIPE 0xfb174f2175389464    16384                     
+pipex_bon 2473 iaskour    1w   REG                1,9        9             6376775 /mnt/homes/iaskour/Documents/pipex/output.txt
+pipex_bon 2473 iaskour    2u   CHR               16,1 0t595454                 679 /dev/ttys001

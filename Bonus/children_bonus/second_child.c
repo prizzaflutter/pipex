@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:42:41 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/13 11:24:31 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/13 22:30:23 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	second_child(int fd, char **argv, char **env, int argc)
 	close(fd);
 	pid = fork();
 	if (pid == -1)
-		return (0);
+		return (ft_printf(2, "Error: fork failed (second child)\n"), 0);
 	if (pid == 0)
 	{
 		cmd_args = ft_split(argv[argc - 2], ' ');
@@ -46,9 +46,10 @@ int	second_child(int fd, char **argv, char **env, int argc)
 			return (0);
 		cmd_path = check_for_cmd(argv[argc - 2], env);
 		if (!cmd_path)
-			return (0);
+			return (free_args(cmd_args), 0);
 		if (execve (cmd_path, cmd_args, env) == -1)
-			return (ft_putstr_fd("Error: EXECVE => (second child)", 2), 0);
+			return (free(cmd_path), free_args(cmd_args),
+				ft_putstr_fd("Error: EXECVE => (second child)", 2), 0);
 	}
 	return (1);
 }

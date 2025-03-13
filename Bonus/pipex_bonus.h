@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:10:45 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/13 11:15:37 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/13 14:13:02 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		open_file(char *file_name);
 int		is_here_doc(char	**argv);
 int		open_here_doc(int *fd1, int *fd2);
+void	free_args(char **cmd_args);
 
 #endif

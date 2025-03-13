@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:35:38 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/13 11:26:39 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/13 22:30:04 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ int	excute_cmd(int i, int *fd_array, char **argv, char **env)
 		return (0);
 	cmd_path = configure_path(argv[i], env);
 	if (!cmd_path)
-		return (0);
+		return (free_args(cmd_args), 0);
 	if (execve(cmd_path, cmd_args, env) == -1)
+	{
+		free_args(cmd_args);
 		return (ft_putstr_fd("Error: EXECVE => (first child)", 2), 0);
+	}
 	return (1);
 }
 
@@ -102,14 +105,17 @@ int	first_child(int i, char **argv, char **env, int flag)
 	if (pid == 0)
 	{
 		if (excute_cmd(i, fd_array, argv, env) == 0)
+		{
+			close(fd_array[1]);
+			close(fd_array[0]);
 			exit(1);
+		}
 	}
 	else
 	{
 		close(fd_array[1]);
 		dup2(fd_array[0], STDIN_FILENO);
 		close(fd_array[0]);
-		exit(0);
 	}
 	return (1);
 }

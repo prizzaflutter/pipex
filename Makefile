@@ -15,7 +15,7 @@ M_SRC= ./Mandatory/main.c ./lib/lib_ft/ft_putstr_fd.c ./lib/lib_ft/ft_split.c  .
 
 B_SRC=	./Bonus/main_bonus.c ./lib/lib_ft/ft_putstr_fd.c ./lib/lib_ft/ft_split.c  ./lib/lib_ft/ft_strncmp.c \
 		./lib/lib_ft/ft_strjoin.c ./lib/lib_ft/ft_calloc.c ./lib/lib_ft/ft_putchar_fd.c \
-		./lib/ft_printf/ft_printf.c  \
+		./lib/ft_printf/ft_printf.c  ./Bonus/free/free_args.c \
 		./lib/get_next_line/get_next_line.c ./lib/get_next_line/get_next_line_utils.c \
 		./Bonus/helpers_bonus/check_files.c ./Bonus/helpers_bonus/get_cmd_path.c ./Bonus/helpers_bonus/open_file.c \
 		./Bonus/children_bonus/first_child.c ./Bonus/children_bonus/second_child.c \
@@ -26,11 +26,15 @@ B_OBJ= $(B_SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(M_OBJ) ./Mandatory/pipex.h 
+$(NAME): $(M_OBJ) ./Mandatory/pipex.h
 	$(CC) $(CFLAGS) $(M_OBJ) -o $(NAME) 
 
+%.o: %.c 
+	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(B_OBJ)  ./Bonus/pipex_bonus.h
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS) : $(B_OBJ)  ./Bonus/pipex_bonus.h
 	$(CC) $(CFLAGS) $(B_OBJ) -o $(NAME_BONUS)
 
 clean:
