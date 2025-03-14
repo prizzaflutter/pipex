@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 07:35:38 by iaskour           #+#    #+#             */
-/*   Updated: 2025/03/13 22:30:04 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/03/14 11:08:31 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	first_child(int i, char **argv, char **env, int flag)
 	pid_t	pid;
 
 	if (pipe(fd_array) == -1)
-		return (0);
+		return (ft_printf(2, "Error: pipe issue (first child)\n"), 0);
 	if (flag == 0)
 		if (handle_herdoc_infile(i, argv) == 0)
 			return (ft_printf(2, "Error: in open file funciton\n"), 0);
@@ -112,10 +112,7 @@ int	first_child(int i, char **argv, char **env, int flag)
 		}
 	}
 	else
-	{
-		close(fd_array[1]);
-		dup2(fd_array[0], STDIN_FILENO);
-		close(fd_array[0]);
-	}
+		return (close(fd_array[1]), dup2(fd_array[0], STDIN_FILENO),
+			close(fd_array[0]), 1);
 	return (1);
 }
